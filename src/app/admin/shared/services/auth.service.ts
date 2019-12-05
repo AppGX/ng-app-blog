@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from 'selenium-webdriver/http';
-//import { User } from '../../../shared/interfaces';
+import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/shared/interfaces';
 
 @Injectable()
