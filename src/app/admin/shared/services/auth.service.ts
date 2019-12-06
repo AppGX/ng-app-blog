@@ -21,9 +21,9 @@ get token(): string{
 }
 
 private setToken(responce: FbAuthResponce | null){
-  console.log('auth.setToken', responce)
+  ///console.log('auth.setToken', responce)
   if (responce){
-  console.log('auth.setToken', responce)
+  //console.log('auth.setToken', responce)
   const expDate = new Date(new Date().getTime()+ +responce.expiresIn * 1000)
   localStorage.setItem('fb-token', responce.idToken)
   localStorage.setItem('fb-token-exp', expDate.toString())

@@ -46,7 +46,7 @@ export class LoginPageComponent implements OnInit {
       this.router.navigate(['/admin', 'dashboard'])
       this.submitted = false
     })
-    console.log(user)
+    //console.log(user)
   }
 
 }

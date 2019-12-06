@@ -9,7 +9,15 @@ import { AuthService } from '../services/auth.service';
 })
 export class AdminLayoutComponent implements OnInit {
 
-  constructor(private router:Router,
+  get name(): string {
+    if (this.auth.isAuthenticated()) {
+      return 'Выход';
+    } else {
+      return 'Войти';
+    }
+  }
+
+  constructor(private router: Router,
     private auth: AuthService) { }
 
   ngOnInit() {
