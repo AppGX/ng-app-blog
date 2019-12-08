@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { User, FbAuthResponce } from 'src/app/shared/interfaces';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators'
+import { Observable, throwError, Subject } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators'
 import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AuthService {
-    
+
+  public error$: Subject<string> = new Subject<string>();
 
 constructor(private http: HttpClient) { }
 
@@ -36,7 +37,8 @@ login(user: User):Observable<any>{
 user.returnSecureToken = true
   return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, user)
   .pipe(
-    tap(this.setToken)
+    tap(this.setToken),
+    catchError(this.handError.bind(this))
   )
 }
 
@@ -47,6 +49,25 @@ logout(){
 isAuthenticated():boolean{
     return !!this.token;
 }
+
+private handError(error: HttpErrorResponse){
+  const {message} = error.error.error;
+  console.log(message)
+  switch (message) {
+    case "EMAIL_NOT_FOUND":{ 
+      this.error$.next('Неверный email');
+    } break;
+    case "INVALID_PASSWORD":{ 
+      this.error$.next('Неверный пароль');
+    } break;
+    case "USER_DISABLED":{ 
+      this.error$.next('Пользователь отключен');
+    } break;
+  }
+  return throwError(error)
 }
+
+}
+
 
 
