@@ -24,4 +24,17 @@ create(post:Post): Observable<Post>{
     }))
 }
 
+getAll(): Observable<Post[]>{
+  return this.http.get(`${environment.fbDbUrl}/posts.json`)
+  .pipe(map( (responce: {[key:string]: any}) => {
+    return Object.keys(responce)
+    .map(key=>({
+      ...responce[key],
+      id: key,
+      date: new Date(responce[key].date)
+    }))
+    
+  }))
+}
+
 }
