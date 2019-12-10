@@ -32,7 +32,7 @@ export class EditPageComponent implements OnInit, OnDestroy {
       }))
       .subscribe((post: Post) => {
         this.post = post;
-        console.log("Init: ", post);
+        // console.log("Init: ", post);
         this.form = new FormGroup({
           title: new FormControl(post.title, Validators.required),
           text: new FormControl(post.text, Validators.required)
@@ -50,7 +50,7 @@ export class EditPageComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
-    console.log(this.post)
+    // console.log(this.post)
     this.submited = true;
     this.uSub = this.postService.update({
       ...this.post,
