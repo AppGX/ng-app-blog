@@ -14,30 +14,30 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   posts: Post[] = [];
   pSub: Subscription;
   dSub: Subscription;
-  serarchStr: string = '';
+  serarchStr = '';
 
   constructor(private auth: AuthService,
-    private postService: PostService) { }
+              private postService: PostService) { }
 
   ngOnInit() {
     this.pSub = this.postService.getAll().subscribe( posts => {
       this.posts = posts;
-      //console.log(posts)
-    })
+      // console.log(posts)
+    });
   }
 
   ngOnDestroy(): void {
     if (this.pSub) {
-      this.pSub.unsubscribe()
+      this.pSub.unsubscribe();
     }
     if (this.dSub) {
-      this.dSub.unsubscribe()
+      this.dSub.unsubscribe();
     }
   }
 
   remove(id: string) {
     this.dSub = this.postService.remove(id).subscribe(() => {
-      this.posts = this.posts.filter(post => post.id !== id )
+      this.posts = this.posts.filter(post => post.id !== id );
     });
   }
 

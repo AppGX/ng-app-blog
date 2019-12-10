@@ -12,7 +12,7 @@ export class PostService {
 
 constructor(private http: HttpClient) { }
 
-create(post: Post): Observable<Post>{
+create(post: Post): Observable<Post> {
   return this.http.post(`${environment.fbDbUrl}/posts.json`, post)
   .pipe(
     map( (responce: FbCreateResponce) => {
@@ -20,8 +20,8 @@ create(post: Post): Observable<Post>{
         ...post,
         id: responce.name,
         date: new Date(post.date)
-      }
-    }))
+      };
+    }));
 }
 
 getAll(): Observable<Post[]>{
@@ -32,8 +32,8 @@ getAll(): Observable<Post[]>{
       ...responce[key],
       id: key,
       date: new Date(responce[key].date)
-    }))
-  }))
+    }));
+  }));
 }
 
 getById(id: string): Observable<Post> {
@@ -44,8 +44,8 @@ getById(id: string): Observable<Post> {
         ...post,
         id,
         date: new Date(post.date)
-      }
-    }))
+      };
+    }));
 }
 
 remove(id: string): Observable<void>{
