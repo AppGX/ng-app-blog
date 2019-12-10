@@ -1,3 +1,4 @@
+import { AlertService } from './../shared/services/alert.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 import { PostService } from 'src/app/shared/post.service';
@@ -17,7 +18,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   serarchStr = '';
 
   constructor(private auth: AuthService,
-              private postService: PostService) { }
+              private postService: PostService,
+              private alert: AlertService) { }
 
   ngOnInit() {
     this.pSub = this.postService.getAll().subscribe( posts => {
@@ -38,6 +40,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   remove(id: string) {
     this.dSub = this.postService.remove(id).subscribe(() => {
       this.posts = this.posts.filter(post => post.id !== id );
+      this.alert.warning('Пост успешно удален');
     });
   }
 
