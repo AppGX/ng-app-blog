@@ -22,7 +22,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.pSub = this.postService.getAll().subscribe( posts => {
       this.posts = posts;
-      console.log(posts)
+      //console.log(posts)
     })
   }
 
